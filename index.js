@@ -55,3 +55,28 @@ function engineerQuestions() {
         doNext();
     })
 }
+
+function internQuestions() {
+    return prompt([
+        {
+                name: 'name',
+                message: 'What is the interns name?',
+        },
+        {
+            name: 'id',
+            message: 'What is the intern id number?',
+        },
+        {
+            name: 'email',
+            message: 'What is the intern email?',
+        },
+        {
+            name: 'school',
+            message: 'What is the interns school name?',
+        },
+    ]).then(answers => {
+        let intern = new Intern(answers.name, answers.id, answers.email, answers.school);
+        team.push(intern);
+        doNext();
+    })
+}
