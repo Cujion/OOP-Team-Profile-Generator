@@ -80,3 +80,22 @@ function internQuestions() {
         doNext();
     })
 }
+
+function doNext() {
+    return prompt({
+        name: 'next',
+        message: 'what would you like to do next?',
+        type: 'list',
+        choices: ['add Engineer', 'add Intern', 'Finish']
+    }).then(answers => {
+        if (answers.next == 'add Engineer') {
+            engineerQuestions();
+        } else if (
+            answers.next == 'add Intern') {
+                internQuestions();
+            }
+            else {
+                buildTeam();
+            }
+    })
+}
