@@ -30,3 +30,28 @@ function managerQuestions() {
         doNext();
     })
 }
+
+function engineerQuestions() {
+    return prompt([
+        {
+                name: 'name',
+                message: 'What is the engineers name?',
+        },
+        {
+            name: 'id',
+            message: 'What is the engineer id number?',
+        },
+        {
+            name: 'email',
+            message: 'What is the engineer email?',
+        },
+        {
+            name: 'github',
+            message: 'What is the engineers github?',
+        },
+    ]).then(answers => {
+        let engineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
+        team.push(engineer);
+        doNext();
+    })
+}
