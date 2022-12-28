@@ -108,6 +108,7 @@ function buildTeam() {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/c502137733.js"></script>
     <title>MY TEAM</title>
 </head>
 <body>
@@ -119,27 +120,30 @@ function buildTeam() {
       </header>
       <main>
         <article>
-          <h2>Manager</h2>
+        <h2><i class="fas fa-mug-hot">  Manager</i></h2>
+        <h2>${Manager.name}</h2>
           <ul>
-            <li>ID: 1</li>
-            <li>Email: manager@email.com</li>
-            <li>Office Number: 123</li>
+            <li>ID: ${Manager.id}</li>
+            <li>Email: ${Manager.email}</li>
+            <li>Office Number: ${Manager.office}</li>
           </ul>
         </article>
         <article>
-          <h2>Engineer</h2>
+        <h2>${Engineer.name}</h2>
+          <h2><i class="fas fa-glasses">  Engineer</i></h2>
           <ul>
-            <li>ID: 2</li>
-            <li>Email: engineer@email.com</li>
-            <li>GitHub: <a href="#github">person</a></li>
+            <li>ID: ${Engineer.id}</li>
+            <li>Email: ${Engineer.email}</li>
+            <li>GitHub: <a href="#github">${Engineer.github}</a></li>
           </ul>
         </article>
         <article>
-          <h2>Intern</h2>
+        <h2>${Intern.name}</h2>
+        <h2><i class="fas fa-glasses">  Intern</i></h2>
           <ul>
-            <li>ID: 3</li>
-            <li>Email: intern@email.com</li>
-            <li>School: FUN University</li>
+            <li>ID: ${Intern.id}</li>
+            <li>Email: ${Intern.email}</li>
+            <li>School: ${Intern.school}</li>
           </ul>
         </article>
       </main>
@@ -153,3 +157,5 @@ function buildTeam() {
 </html>
     `)
 }
+
+managerQuestions();
