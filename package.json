@@ -1,5 +1,4 @@
 {
-  "_comment": "Instructor provided package.json",
   "scripts": {
     "test": "jest"
   },
@@ -10,5 +9,21 @@
   },
   "devDependencies": {
     "jest": "^24.8.0"
-  }
+  },
+  "name": "oop-team-profile-generator",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cujion/OOP-Team-Profile-Generator.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/Cujion/OOP-Team-Profile-Generator/issues"
+  },
+  "homepage": "https://github.com/Cujion/OOP-Team-Profile-Generator#readme"
 }
