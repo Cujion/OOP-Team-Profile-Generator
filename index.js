@@ -65,7 +65,7 @@ function engineerQuestions() {
         },
     ]).then(answers => {
         let engineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
-        engineer.special = `GitHub: <a href="#github">${engineer.github}</a>`;
+        engineer.special = `GitHub: <a href="https://github.com/${engineer.github}"target="_blank">${engineer.github}</a>`;
         engineer.icon = `"fas fa-mug-hot"`;
         team.push(engineer);
         doNext();
