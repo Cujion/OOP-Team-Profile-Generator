@@ -25,6 +25,14 @@ function managerQuestions() {
         {
             name: 'email',
             message: 'What is the managers email?',
+            validate: function (email) {
+                valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
+                if (valid) {
+                    return true;
+                } else {
+                    return "Please enter a valid email address.";
+                }
+            }
         },
         {
             name: 'office',
@@ -32,6 +40,9 @@ function managerQuestions() {
         },
     ]).then(answers => {
         let manager = new Manager(answers.name, answers.id, answers.email, answers.office);
+        const nameFirstChar = manager.name.charAt(0).toUpperCase();
+        const nameRemainingChar = manager.name.slice(1);
+        manager.name = nameFirstChar + nameRemainingChar;
         manager.special = `Office Number: ${manager.officeNumber}`;
         manager.icon = `"fas fa-glasses"`;
         team.push(manager);
@@ -65,7 +76,10 @@ function engineerQuestions() {
         },
     ]).then(answers => {
         let engineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
-        engineer.special = `GitHub: <a href="https://github.com/${engineer.github}"target="_blank">${engineer.github}</a>`;
+        const nameFirstChar = engineer.name.charAt(0).toUpperCase();
+        const nameRemainingChar = engineer.name.slice(1);
+        engineer.name = nameFirstChar + nameRemainingChar;
+        engineer.special = `GitHub: <a href="https://github.com/${engineer.github}" target="_blank">${engineer.github}</a>`;
         engineer.icon = `"fas fa-mug-hot"`;
         team.push(engineer);
         doNext();
@@ -98,6 +112,9 @@ function internQuestions() {
         },
     ]).then(answers => {
         let intern = new Intern(answers.name, answers.id, answers.email, answers.school);
+        const nameFirstChar = intern.name.charAt(0).toUpperCase();
+        const nameRemainingChar = intern.name.slice(1);
+        intern.name = nameFirstChar + nameRemainingChar;
         intern.special = `School: ${intern.school}`;
         intern.icon = `"fas fa-user-graduate"`;
         team.push(intern);
@@ -170,7 +187,7 @@ function buildTeam() {
         fs.appendFileSync('./dist/team.html', `
         <article>
         <h2><i class=${team[i].icon}>  ${team[i].getRole()}</i></h2>
-        <h2>${team[i].name}</h2>
+        <h2>${team[i].name.slice(' ')}</h2>
           <ul>
             <li>ID: ${team[i].id}</li>
             <li>Email: <a href="mailto:${team[i].email}">${team[i].email}</a></li>
@@ -190,3 +207,5 @@ function buildTeam() {
 }
 
 managerQuestions();
+
+//.charAt(0).toUpperCase().team[i].name.slice(1)
