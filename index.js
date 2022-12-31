@@ -1,13 +1,13 @@
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
-const prompt =require('inquirer').prompt();
+const prompt = require('inquirer');
 const fs = require('fs');
 let team = [];
 
 
 function managerQuestions() {
-    return prompt([
+    prompt.prompt([
         {
                 name: 'name',
                 message: 'What is the managers name?',
@@ -15,6 +15,12 @@ function managerQuestions() {
         {
             name: 'id',
             message: 'What is the managers id number?',
+            validate: (answer) => {
+                if (isNaN(answer)) {
+                  return "please enter a number";
+                }
+                return true;
+              },
         },
         {
             name: 'email',
@@ -26,13 +32,15 @@ function managerQuestions() {
         },
     ]).then(answers => {
         let manager = new Manager(answers.name, answers.id, answers.email, answers.office);
+        manager.special = `Office Number: ${manager.officeNumber}`;
+        manager.icon = `"fas fa-glasses"`;
         team.push(manager);
         doNext();
     })
 }
 
 function engineerQuestions() {
-    return prompt([
+    prompt.prompt([
         {
                 name: 'name',
                 message: 'What is the engineers name?',
@@ -40,6 +48,12 @@ function engineerQuestions() {
         {
             name: 'id',
             message: 'What is the engineer id number?',
+            validate: (answer) => {
+                if (isNaN(answer)) {
+                  return "please enter a number";
+                }
+                return true;
+              },
         },
         {
             name: 'email',
@@ -51,13 +65,15 @@ function engineerQuestions() {
         },
     ]).then(answers => {
         let engineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
+        engineer.special = `GitHub: <a href="#github">${engineer.github}</a>`;
+        engineer.icon = `"fas fa-mug-hot"`;
         team.push(engineer);
         doNext();
     })
 }
 
 function internQuestions() {
-    return prompt([
+    prompt.prompt([
         {
                 name: 'name',
                 message: 'What is the interns name?',
@@ -65,6 +81,12 @@ function internQuestions() {
         {
             name: 'id',
             message: 'What is the intern id number?',
+            validate: (answer) => {
+                if (isNaN(answer)) {
+                  return "please enter a number";
+                }
+                return true;
+              },
         },
         {
             name: 'email',
@@ -76,22 +98,24 @@ function internQuestions() {
         },
     ]).then(answers => {
         let intern = new Intern(answers.name, answers.id, answers.email, answers.school);
+        intern.special = `School: ${intern.school}`;
+        intern.icon = `"fas fa-user-graduate"`;
         team.push(intern);
         doNext();
     })
 }
 
 function doNext() {
-    return prompt({
+    prompt.prompt({
         name: 'next',
         message: 'what would you like to do next?',
         type: 'list',
-        choices: ['add Engineer', 'add Intern', 'Finish']
+        choices: ['Add Engineer', 'Add Intern', 'Finish']
     }).then(answers => {
-        if (answers.next == 'add Engineer') {
+        if (answers.next == 'Add Engineer') {
             engineerQuestions();
         } else if (
-            answers.next == 'add Intern') {
+            answers.next == 'Add Intern') {
                 internQuestions();
             }
             else {
@@ -110,49 +134,56 @@ function buildTeam() {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/c502137733.js"></script>
     <title>MY TEAM</title>
+    <!-- Minified version -->
+    <style>
+      @import "https://cdn.simplecss.org/simple.min.css";
+  
+      main {
+        display: grid;
+        grid-column: 1/-1;
+        justify-items: center;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 1rem;
+        max-width: 1140px;
+        margin: auto;
+      }
+  
+      @media screen and (max-width: 1140px) {
+        main {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      @media screen and (max-width: 720px) {
+        main {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
 </head>
 <body>
+<header>
+<h1>My Team</h1>
+</header>
+<main>
     `)
     for(i = 0; i < team.length; i++) {
         fs.appendFileSync('./dist/team.html', `
-        <header>
-        <h1>My Team</h1>
-      </header>
-      <main>
         <article>
-        <h2><i class="fas fa-mug-hot">  Manager</i></h2>
-        <h2>${Manager.name}</h2>
+        <h2><i class=${team[i].icon}>  ${team[i].getRole()}</i></h2>
+        <h2>${team[i].name}</h2>
           <ul>
-            <li>ID: ${Manager.id}</li>
-            <li>Email: ${Manager.email}</li>
-            <li>Office Number: ${Manager.office}</li>
+            <li>ID: ${team[i].id}</li>
+            <li>Email: <a href="mailto:${team[i].email}">${team[i].email}</a></li>
+            <li>${team[i].special}</li>
           </ul>
         </article>
-        <article>
-        <h2>${Engineer.name}</h2>
-          <h2><i class="fas fa-glasses">  Engineer</i></h2>
-          <ul>
-            <li>ID: ${Engineer.id}</li>
-            <li>Email: ${Engineer.email}</li>
-            <li>GitHub: <a href="#github">${Engineer.github}</a></li>
-          </ul>
-        </article>
-        <article>
-        <h2>${Intern.name}</h2>
-        <h2><i class="fas fa-glasses">  Intern</i></h2>
-          <ul>
-            <li>ID: ${Intern.id}</li>
-            <li>Email: ${Intern.email}</li>
-            <li>School: ${Intern.school}</li>
-          </ul>
-        </article>
-      </main>
-      <footer>
-        &copy; 2022-2023
-      </footer>
         `)
     }
     fs.appendFileSync('./dist/team.html', `
+    </main>
+    <footer>
+    &copy; 2022-2023
+  </footer>
     </body>
 </html>
     `)
