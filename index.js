@@ -164,7 +164,27 @@ function buildTeam() {
         max-width: 1140px;
         margin: auto;
       }
-  
+
+      h2 {
+        color: white;
+        margin: 16px;
+      }
+
+      ul {
+        margin-top: 32px;
+        margin-bottom: 16px;
+        list-style: none;
+        padding: 0;
+      }
+
+      li {
+        color: white;
+        background-color: #2b2b2b;
+        border: 1px solid #898EA4;
+        margin-bottom: 4px;
+        padding: 4px
+      }
+      
       @media screen and (max-width: 1140px) {
         main {
           grid-template-columns: 1fr 1fr;
@@ -186,8 +206,8 @@ function buildTeam() {
     for(i = 0; i < team.length; i++) {
         fs.appendFileSync('./dist/team.html', `
         <article>
-        <h2><i class=${team[i].icon}>  ${team[i].getRole()}</i></h2>
-        <h2>${team[i].name.slice(' ')}</h2>
+            <h2>${team[i].name.slice(' ')}</h2>
+            <h2><i class=${team[i].icon}>  ${team[i].getRole()}</i></h2>
           <ul>
             <li>ID: ${team[i].id}</li>
             <li>Email: <a href="mailto:${team[i].email}">${team[i].email}</a></li>
@@ -207,5 +227,3 @@ function buildTeam() {
 }
 
 managerQuestions();
-
-//.charAt(0).toUpperCase().team[i].name.slice(1)
