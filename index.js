@@ -1,3 +1,4 @@
+// DEFINING THE REQUIRED SRC AND NODE.JS FOR FILE TO RUN PROPERLY
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
@@ -5,7 +6,7 @@ const prompt = require('inquirer');
 const fs = require('fs');
 let team = [];
 
-
+// CREATING MANAGER QUESTIONS THAT WILL BE PROMPTED IN THE TERMINAL
 function managerQuestions() {
     prompt.prompt([
         {
@@ -15,6 +16,7 @@ function managerQuestions() {
         {
             name: 'id',
             message: 'What is the managers id number?',
+            // VALID ONLY A NUMBER VALUE HAS BEEN ENTERED
             validate: (answer) => {
                 if (isNaN(answer)) {
                   return "please enter a number";
@@ -25,6 +27,7 @@ function managerQuestions() {
         {
             name: 'email',
             message: 'What is the managers email?',
+            // VALID A CORRECT EMAIL HAS BEEN ENTERED
             validate: function (email) {
                 valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
                 if (valid) {
@@ -40,6 +43,7 @@ function managerQuestions() {
         },
     ]).then(answers => {
         let manager = new Manager(answers.name, answers.id, answers.email, answers.office);
+        // CHANGING THE FIRST LETTER OF THE NAME INPUT VALUE TO UPPER CASE
         const nameFirstChar = manager.name.charAt(0).toUpperCase();
         const nameRemainingChar = manager.name.slice(1);
         manager.name = nameFirstChar + nameRemainingChar;
@@ -49,7 +53,7 @@ function managerQuestions() {
         doNext();
     })
 }
-
+// CREATING ENGINEER QUESTIONS THAT WILL BE PROMPTED IN THE TERMINAL IF ADD ENGINEER IS SELECTED
 function engineerQuestions() {
     prompt.prompt([
         {
@@ -85,7 +89,7 @@ function engineerQuestions() {
         doNext();
     })
 }
-
+// CREATING INTERN QUESTIONS THAT WILL BE PROMPTED IN THE TERMINAL IF ADD ENGINEER IS SELECTED
 function internQuestions() {
     prompt.prompt([
         {
@@ -121,7 +125,7 @@ function internQuestions() {
         doNext();
     })
 }
-
+// FUNCTION FOR AFTER MANAGER QUESTIONS HAVE BEEN ANSWERED TO PROMPT IF AN INTERN OR ENGINEER WOULD LIKE TO BE ADDED IF NOT BUILD TEAM
 function doNext() {
     prompt.prompt({
         name: 'next',
@@ -140,7 +144,7 @@ function doNext() {
             }
     })
 }
-
+// FUNCTION TO BUILD TEAM AND CREATE AN HTML FORMATTED PAGE
 function buildTeam() {
     fs.writeFileSync('./dist/team.html', `
     <!DOCTYPE html>
@@ -163,6 +167,10 @@ function buildTeam() {
         gap: 1rem;
         max-width: 1140px;
         margin: auto;
+      }
+
+      article {
+        width: 100%;
       }
 
       h2 {
