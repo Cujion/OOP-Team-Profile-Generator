@@ -8,145 +8,161 @@ let team = [];
 
 // CREATING MANAGER QUESTIONS THAT WILL BE PROMPTED IN THE TERMINAL
 function managerQuestions() {
-    prompt.prompt([
-        {
-                name: 'name',
-                message: 'What is the managers name?',
-        },
-        {
-            name: 'id',
-            message: 'What is the managers id number?',
-            // VALID ONLY A NUMBER VALUE HAS BEEN ENTERED
-            validate: (answer) => {
-                if (isNaN(answer)) {
-                  return "please enter a number";
-                }
-                return true;
-              },
-        },
-        {
-            name: 'email',
-            message: 'What is the managers email?',
-            // VALID A CORRECT EMAIL HAS BEEN ENTERED
-            validate: function (email) {
-                valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
-                if (valid) {
-                    return true;
-                } else {
-                    return "Please enter a valid email address.";
-                }
-            }
-        },
-        {
-            name: 'office',
-            message: 'What is the managers office number?',
-        },
-    ]).then(answers => {
-        let manager = new Manager(answers.name, answers.id, answers.email, answers.office);
-        // CHANGING THE FIRST LETTER OF THE NAME INPUT VALUE TO UPPER CASE
-        const nameFirstChar = manager.name.charAt(0).toUpperCase();
-        const nameRemainingChar = manager.name.slice(1);
-        manager.name = nameFirstChar + nameRemainingChar;
-        manager.special = `Office Number: ${manager.officeNumber}`;
-        manager.icon = `"fas fa-glasses"`;
-        team.push(manager);
-        doNext();
-    })
+  prompt.prompt([
+    {
+      name: 'name',
+      message: 'What is the managers name?',
+    },
+    {
+      name: 'id',
+      message: 'What is the managers id number?',
+      // VALID ONLY A NUMBER VALUE HAS BEEN ENTERED
+      validate: (answer) => {
+        if (isNaN(answer)) {
+          return "please enter a number";
+        }
+        return true;
+      },
+    },
+    {
+      name: 'email',
+      message: 'What is the managers email?',
+      // VALID A CORRECT EMAIL HAS BEEN ENTERED
+      validate: function (email) {
+        valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
+        if (valid) {
+          return true;
+        } else {
+          return "Please enter a valid email address.";
+        }
+      }
+    },
+    {
+      name: 'office',
+      message: 'What is the managers office number?',
+    },
+  ]).then(answers => {
+    let manager = new Manager(answers.name, answers.id, answers.email, answers.office);
+    // CHANGING THE FIRST LETTER OF THE NAME INPUT VALUE TO UPPER CASE
+    const nameFirstChar = manager.name.charAt(0).toUpperCase();
+    const nameRemainingChar = manager.name.slice(1);
+    manager.name = nameFirstChar + nameRemainingChar;
+    manager.special = `Office Number: ${manager.officeNumber}`;
+    manager.icon = `"fas fa-glasses"`;
+    team.push(manager);
+    doNext();
+  })
 }
 // CREATING ENGINEER QUESTIONS THAT WILL BE PROMPTED IN THE TERMINAL IF ADD ENGINEER IS SELECTED
 function engineerQuestions() {
-    prompt.prompt([
-        {
-                name: 'name',
-                message: 'What is the engineers name?',
-        },
-        {
-            name: 'id',
-            message: 'What is the engineer id number?',
-            validate: (answer) => {
-                if (isNaN(answer)) {
-                  return "please enter a number";
-                }
-                return true;
-              },
-        },
-        {
-            name: 'email',
-            message: 'What is the engineer email?',
-        },
-        {
-            name: 'github',
-            message: 'What is the engineers github?',
-        },
-    ]).then(answers => {
-        let engineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
-        const nameFirstChar = engineer.name.charAt(0).toUpperCase();
-        const nameRemainingChar = engineer.name.slice(1);
-        engineer.name = nameFirstChar + nameRemainingChar;
-        engineer.special = `GitHub: <a href="https://github.com/${engineer.github}" target="_blank">${engineer.github}</a>`;
-        engineer.icon = `"fas fa-mug-hot"`;
-        team.push(engineer);
-        doNext();
-    })
+  prompt.prompt([
+    {
+      name: 'name',
+      message: 'What is the engineers name?',
+    },
+    {
+      name: 'id',
+      message: 'What is the engineer id number?',
+      validate: (answer) => {
+        if (isNaN(answer)) {
+          return "please enter a number";
+        }
+        return true;
+      },
+    },
+    {
+      name: 'email',
+      message: 'What is the engineer email?',
+      validate: function (email) {
+        valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
+        if (valid) {
+          return true;
+        } else {
+          return "Please enter a valid email address.";
+        }
+      }
+    },
+    {
+      name: 'github',
+      message: 'What is the engineers github?',
+    },
+  ]).then(answers => {
+    let engineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
+    const nameFirstChar = engineer.name.charAt(0).toUpperCase();
+    const nameRemainingChar = engineer.name.slice(1);
+    engineer.name = nameFirstChar + nameRemainingChar;
+    engineer.special = `GitHub: <a href="https://github.com/${engineer.github}" target="_blank">${engineer.github}</a>`;
+    engineer.icon = `"fas fa-mug-hot"`;
+    team.push(engineer);
+    doNext();
+  })
 }
 // CREATING INTERN QUESTIONS THAT WILL BE PROMPTED IN THE TERMINAL IF ADD ENGINEER IS SELECTED
 function internQuestions() {
-    prompt.prompt([
-        {
-                name: 'name',
-                message: 'What is the interns name?',
-        },
-        {
-            name: 'id',
-            message: 'What is the intern id number?',
-            validate: (answer) => {
-                if (isNaN(answer)) {
-                  return "please enter a number";
-                }
-                return true;
-              },
-        },
-        {
-            name: 'email',
-            message: 'What is the intern email?',
-        },
-        {
-            name: 'school',
-            message: 'What is the interns school name?',
-        },
-    ]).then(answers => {
-        let intern = new Intern(answers.name, answers.id, answers.email, answers.school);
-        const nameFirstChar = intern.name.charAt(0).toUpperCase();
-        const nameRemainingChar = intern.name.slice(1);
-        intern.name = nameFirstChar + nameRemainingChar;
-        intern.special = `School: ${intern.school}`;
-        intern.icon = `"fas fa-user-graduate"`;
-        team.push(intern);
-        doNext();
-    })
+  prompt.prompt([
+    {
+      name: 'name',
+      message: 'What is the interns name?',
+    },
+    {
+      name: 'id',
+      message: 'What is the intern id number?',
+      validate: (answer) => {
+        if (isNaN(answer)) {
+          return "please enter a number";
+        }
+        return true;
+      },
+    },
+    {
+      name: 'email',
+      message: 'What is the intern email?',
+      validate: function (email) {
+        valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
+        if (valid) {
+          return true;
+        } else {
+          return "Please enter a valid email address.";
+        }
+      }
+    },
+    {
+      name: 'school',
+      message: 'What is the interns school name?',
+    },
+  ]).then(answers => {
+    let intern = new Intern(answers.name, answers.id, answers.email, answers.school);
+    const nameFirstChar = intern.name.charAt(0).toUpperCase();
+    const nameRemainingChar = intern.name.slice(1);
+    intern.name = nameFirstChar + nameRemainingChar;
+    intern.special = `School: ${intern.school}`;
+    intern.icon = `"fas fa-user-graduate"`;
+    team.push(intern);
+    doNext();
+  })
 }
 // FUNCTION FOR AFTER MANAGER QUESTIONS HAVE BEEN ANSWERED TO PROMPT IF AN INTERN OR ENGINEER WOULD LIKE TO BE ADDED IF NOT BUILD TEAM
 function doNext() {
-    prompt.prompt({
-        name: 'next',
-        message: 'what would you like to do next?',
-        type: 'list',
-        choices: ['Add Engineer', 'Add Intern', 'Finish']
-    }).then(answers => {
-        if (answers.next == 'Add Engineer') {
-            engineerQuestions();
-        } else if (
-            answers.next == 'Add Intern') {
-                internQuestions();
-            }
-            else {
-                buildTeam();
-            }
-    })
+  prompt.prompt({
+    name: 'next',
+    message: 'what would you like to do next?',
+    type: 'list',
+    choices: ['Add Engineer', 'Add Intern', 'Finish']
+  }).then(answers => {
+    if (answers.next == 'Add Engineer') {
+      engineerQuestions();
+    } else if (
+      answers.next == 'Add Intern') {
+      internQuestions();
+    }
+    else {
+      buildTeam();
+    }
+  })
 }
 // FUNCTION TO BUILD TEAM AND CREATE AN HTML FORMATTED PAGE
 function buildTeam() {
-    fs.writeFileSync('./dist/team.html', `
+  fs.writeFileSync('./dist/team.html', `
     <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -211,8 +227,8 @@ function buildTeam() {
 </header>
 <main>
     `)
-    for(i = 0; i < team.length; i++) {
-        fs.appendFileSync('./dist/team.html', `
+  for (i = 0; i < team.length; i++) {
+    fs.appendFileSync('./dist/team.html', `
         <article>
             <h2>${team[i].name.slice(' ')}</h2>
             <h2><i class=${team[i].icon}>  ${team[i].getRole()}</i></h2>
@@ -223,8 +239,8 @@ function buildTeam() {
           </ul>
         </article>
         `)
-    }
-    fs.appendFileSync('./dist/team.html', `
+  }
+  fs.appendFileSync('./dist/team.html', `
     </main>
     <footer>
     &copy; 2022-2023
